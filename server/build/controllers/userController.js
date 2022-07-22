@@ -4,14 +4,12 @@ exports.loginUser = exports.createUser = void 0;
 const user_1 = require("../models/user");
 const auth_1 = require("../services/auth");
 const createUser = async (req, res, next) => {
-    let username = req.body.username;
-    let password = req.body.password;
-    const newUser = new user_1.Users(username, password);
+    let newUser = req.body;
     try {
         if (newUser.username && newUser.password) {
             let hashedPassword = await (0, auth_1.hashPassword)(newUser.password);
             newUser.password = hashedPassword;
-            let created = await newUser.save();
+            let created = await user_1.Users.create(newUser);
             res.status(201).json({
                 username: created.username,
                 userId: created.userId
@@ -27,8 +25,9 @@ const createUser = async (req, res, next) => {
 };
 exports.createUser = createUser;
 const loginUser = async (req, res, next) => {
-    let userName = req.body.username;
-    let existingUser = await user_1.Users.findOne(userName);
+    let existingUser = await user_1.Users.findOne({
+        where: { username: req.body.username }
+    });
     if (existingUser) {
         let passwordsMatch = await (0, auth_1.comparePasswords)(req.body.password, existingUser.password);
         if (passwordsMatch) {

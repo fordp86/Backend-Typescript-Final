@@ -38,7 +38,7 @@ function UserFactory(sequelize) {
             allowNull: false
         },
     }, {
-        tableName: 'tweets',
+        tableName: 'users',
         freezeTableName: true,
         sequelize
     });

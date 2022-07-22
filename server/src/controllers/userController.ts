@@ -3,16 +3,13 @@ import { Users } from "../models/user";
 import { comparePasswords, hashPassword, signUserToken, verifyUser } from "../services/auth";
 
 export const createUser: RequestHandler = async (req, res, next) => {
-    let username = req.body.username;
-    let password = req.body.password;
-
-    const newUser: Users = new Users(username, password);
+    let newUser: Users = req.body;
 
     try {
         if (newUser.username && newUser.password) {
             let hashedPassword = await hashPassword(newUser.password);
             newUser.password = hashedPassword;
-            let created = await newUser.save();
+            let created = await Users.create(newUser);
             res.status(201).json({
                 username: created.username,
                 userId: created.userId
@@ -28,8 +25,9 @@ export const createUser: RequestHandler = async (req, res, next) => {
 }
 
 export const loginUser: RequestHandler = async (req, res, next) => {
-    let userName = req.body.username;
-    let existingUser: Users | null = await Users.findOne(userName);
+    let existingUser: Users | null = await Users.findOne({ 
+        where: { username: req.body.username }
+    });
 
     if (existingUser) {
         let passwordsMatch = await comparePasswords(req.body.password, existingUser.password);

@@ -23,14 +23,14 @@ export const addTweet: RequestHandler = async (req, res, next) => {
     }
 
     let newTweet: Tweets = req.body;
-    await Tweets.create(newTweet);
+    newTweet.userId = user.userId;
 
-    try {
-        await newTweet.save();
-        res.status(201).json(newTweet);
+    if (newTweet.tweet) {
+        let created = await Tweets.create(newTweet);
+        res.status(201).json(created);
     }
-    catch (err) {
-        res.status(500).send(err);
+    else {
+        res.status(400).send();
     }
 }
 

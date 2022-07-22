@@ -4,9 +4,9 @@ import { addTweet, editTweet, deleteTweet, getAllTweets, getTweet } from '../con
 const router = Router();
 
 router.get('/', getAllTweets);
-router.get('/:id', getTweet);
+router.get('/:tweetId', getTweet);
 router.post('/', addTweet);
-router.put('/:id', editTweet);
-router.delete('/:id', deleteTweet);
+router.put('/:tweetId', editTweet);
+router.delete('/:tweetId', deleteTweet);
 
 export default router;

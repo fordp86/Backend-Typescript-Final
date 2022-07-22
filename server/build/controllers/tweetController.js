@@ -20,13 +20,13 @@ const addTweet = async (req, res, next) => {
         return res.status(403).send();
     }
     let newTweet = req.body;
-    await tweet_1.Tweets.create(newTweet);
-    try {
-        await newTweet.save();
-        res.status(201).json(newTweet);
+    newTweet.userId = user.userId;
+    if (newTweet.tweet) {
+        let created = await tweet_1.Tweets.create(newTweet);
+        res.status(201).json(created);
     }
-    catch (err) {
-        res.status(500).send(err);
+    else {
+        res.status(400).send();
     }
 };
 exports.addTweet = addTweet;
