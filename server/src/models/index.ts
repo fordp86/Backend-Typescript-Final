@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize";
-import { TweetFactory, AssociateUserTweet } from "./rant";
+import { RantFactory, AssociateUserRant } from "./rant";
 import { UserFactory } from "./user";
 
-const dbName = 'tweetsDB';
+const dbName = 'rantsDB';
 const username = 'root';
 const password = '123';
 
@@ -12,8 +12,8 @@ const sequelize = new Sequelize(dbName, username, password, {
     dialect: 'mysql'
 });
 
-TweetFactory(sequelize);
+RantFactory(sequelize);
 UserFactory(sequelize);
-AssociateUserTweet();
+AssociateUserRant();
 
 export const db = sequelize;

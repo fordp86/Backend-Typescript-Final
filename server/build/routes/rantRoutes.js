@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const rantController_1 = require("../controllers/rantController");
+const router = (0, express_1.Router)();
+router.get('/', rantController_1.getAllRants);
+router.get('/:rantId', rantController_1.getRant);
+router.post('/', rantController_1.addRant);
+router.put('/:rantId', rantController_1.editRant);
+router.delete('/:rantId', rantController_1.deleteRant);
+exports.default = router;

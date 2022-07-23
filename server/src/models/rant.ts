@@ -43,7 +43,7 @@ export function RantFactory(sequelize: Sequelize) {
     });
 }
 
-export function AssociateUserTweet() {
+export function AssociateUserRant() {
     Users.hasMany(Rants, { foreignKey: 'userId' });
     Rants.belongsTo(Users, { foreignKey: 'userId' });
 }
