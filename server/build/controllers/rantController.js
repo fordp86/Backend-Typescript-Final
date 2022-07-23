@@ -24,7 +24,7 @@ const addRant = async (req, res, next) => {
     }
     let newRant = req.body;
     newRant.userId = user.userId;
-    if (newRant.rant) {
+    if (newRant.rantBody) {
         let created = await rant_1.Rants.create(newRant);
         res.status(201).json(created);
     }

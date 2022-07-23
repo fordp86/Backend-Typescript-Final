@@ -27,7 +27,7 @@ export const addRant: RequestHandler = async (req, res, next) => {
     let newRant: Rants = req.body;
     newRant.userId = user.userId;
 
-    if (newRant.rant) {
+    if (newRant.rantBody) {
         let created = await Rants.create(newRant);
         res.status(201).json(created);
     }

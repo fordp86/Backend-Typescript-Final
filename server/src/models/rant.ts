@@ -4,7 +4,7 @@ import { Users } from "./user";
 
 export class Rants extends Model<InferAttributes<Rants>, InferCreationAttributes<Rants>>{
     declare rantId: number;
-    declare rant: string;
+    declare rantBody: string;
     declare userId: number;
     declare createdAt?: Date;
     declare updatedAt?: Date;
@@ -18,7 +18,7 @@ export function RantFactory(sequelize: Sequelize) {
             primaryKey: true,
             allowNull: false
         },
-        rant: {
+        rantBody: {
             type: DataTypes.STRING,
             allowNull: false
         },

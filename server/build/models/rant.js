@@ -14,7 +14,7 @@ function RantFactory(sequelize) {
             primaryKey: true,
             allowNull: false
         },
-        rant: {
+        rantBody: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false
         },
