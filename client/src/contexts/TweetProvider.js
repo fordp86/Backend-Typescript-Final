@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import TweetContext from './TweetContext';
+import TweetContext from './RantContext';
 
 export const TweetProvider = (props) => {
 

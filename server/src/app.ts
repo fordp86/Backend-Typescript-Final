@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import { db } from './models';
-import tweetRoutes from './routes/tweetRoutes';
+import rantRoutes from './routes/rantRoutes';
 import userRoutes from './routes/userRoutes';
 
 
@@ -20,7 +20,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // routes
-app.use('/api/tweets', tweetRoutes);
+app.use('/api/rants', rantRoutes);
 app.use('/api/users', userRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {

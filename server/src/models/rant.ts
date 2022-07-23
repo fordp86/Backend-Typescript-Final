@@ -2,23 +2,23 @@ import { InferAttributes, InferCreationAttributes, Model, DataTypes, Sequelize }
 import { Users } from "./user";
 
 
-export class Tweets extends Model<InferAttributes<Tweets>, InferCreationAttributes<Tweets>>{
-    declare tweetId: number;
-    declare tweet: string;
+export class Rants extends Model<InferAttributes<Rants>, InferCreationAttributes<Rants>>{
+    declare rantId: number;
+    declare rant: string;
     declare userId: number;
     declare createdAt?: Date;
     declare updatedAt?: Date;
 }
 
-export function TweetFactory(sequelize: Sequelize) {
-    Tweets.init({
-        tweetId: {
+export function RantFactory(sequelize: Sequelize) {
+    Rants.init({
+        rantId: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             allowNull: false
         },
-        tweet: {
+        rant: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -37,13 +37,13 @@ export function TweetFactory(sequelize: Sequelize) {
             defaultValue: DataTypes.NOW,
         }
     }, {
-        tableName: 'tweets',
+        tableName: 'rants',
         freezeTableName: true,
         sequelize
     });
 }
 
 export function AssociateUserTweet() {
-    Users.hasMany(Tweets, { foreignKey: 'userId' });
-    Tweets.belongsTo(Users, { foreignKey: 'userId' });
+    Users.hasMany(Rants, { foreignKey: 'userId' });
+    Rants.belongsTo(Users, { foreignKey: 'userId' });
 }

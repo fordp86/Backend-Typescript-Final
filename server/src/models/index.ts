@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { TweetFactory, AssociateUserTweet } from "./tweet";
+import { TweetFactory, AssociateUserTweet } from "./rant";
 import { UserFactory } from "./user";
 
 const dbName = 'tweetsDB';

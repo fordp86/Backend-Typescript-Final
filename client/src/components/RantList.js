@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NewTweet = () => {
+const RantList = () => {
 
     return (
         <div>
@@ -10,4 +10,4 @@ const NewTweet = () => {
     )
 };
 
-export default NewTweet;
+export default RantList;

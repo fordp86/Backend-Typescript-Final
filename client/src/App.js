@@ -2,15 +2,15 @@ import React from 'react';
 import { Route, BrowserRouter, Routes, Link } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import TweetList from './components/TweetList';
-import NewTweet from './components/NewTweet';
+import RantList from './components/RantList';
+import NewRant from './components/NewRant';
 import { UserProvider } from './contexts/UserProvider';
-import { TweetProvider } from './contexts/TweetProvider';
+import { RantProvider } from './contexts/RantProvider';
 
 function App() {
   return (
     <UserProvider>
-      <TweetProvider>
+      <RantProvider>
         <div>
           <BrowserRouter>
               <nav>
@@ -25,12 +25,12 @@ function App() {
                   <Route exact path="/" element={ <SignIn /> } />
                   <Route path="/signin" element={ <SignIn /> } />
                   <Route path="/signup" element={ <SignUp /> } />
-                  <Route path="/tweets/new" element={ <NewTweet /> } />
-                  <Route path="/tweets" element={ <TweetList /> } />
+                  <Route path="/tweets/new" element={ <NewRant /> } />
+                  <Route path="/tweets" element={ <RantList /> } />
               </Routes>
           </BrowserRouter>
         </div>
-      </TweetProvider>
+      </RantProvider>
     </UserProvider>
   );
 }
