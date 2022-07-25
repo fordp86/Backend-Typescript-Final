@@ -11,7 +11,7 @@ export const getAllRants: RequestHandler = async (req, res, next) => {
 
 // Get One Rant
 export const getRant: RequestHandler = async (req, res, next) => {
-    let itemId = req.params.id;
+    let itemId = req.params.rantId;
     let rantItem: Rants | null = await Rants.findByPk(itemId);
     res.status(200).json(rantItem);
 }

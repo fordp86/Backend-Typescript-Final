@@ -31,7 +31,7 @@ const RantList = () => {
                                     <p>{r.rantBody}</p>
                                     <p>{r.createdAt}</p>
                                     <div>
-                                        <Link to={r.rantId}>Edit Rant</Link>
+                                        <a href ={`/rants/${r.rantId}`}>Edit This</a>
                                         <br />
                                         <Link to={{}} onClick={() => removeRant(`${r.rantId}`)}>Delete Rant</Link>
                                     </div>

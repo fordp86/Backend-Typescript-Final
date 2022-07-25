@@ -11,7 +11,7 @@ const getAllRants = async (req, res, next) => {
 exports.getAllRants = getAllRants;
 // Get One Rant
 const getRant = async (req, res, next) => {
-    let itemId = req.params.id;
+    let itemId = req.params.rantId;
     let rantItem = await rant_1.Rants.findByPk(itemId);
     res.status(200).json(rantItem);
 };

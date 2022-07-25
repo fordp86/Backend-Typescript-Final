@@ -2,21 +2,21 @@ import React, { useContext, useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import RantContext from '../contexts/RantContext';
 
-const UpdateRant = (props) => {
+const UpdateCoffee = (props) => {
     let params = useParams();
     let navigate = useNavigate();
 
-    let { editRant, getRants, rant } = useContext(RantContext);
-
-    let { rantId, rantBody  } = rant;
+    let { editRant, getOneRant, rant } = useContext(RantContext);
 
     useEffect(() => {
         async function fetch() {
-          await getRants(params.rantId)
-            .then((rant) => setUpdateRant(rant));
+          await getOneRant(params.rantId)
+            .then((rant) => setUpdateRant(rant))
         }
         fetch()
-      }, [params.rantId, getRants]);
+      }, [params.rantId, getOneRant]);
+
+    let { rantId, rantBody } = rant;
 
     console.log(rant);
 
@@ -33,7 +33,7 @@ const UpdateRant = (props) => {
 
     function handleSubmit(event) {
         event.preventDefault();
-        editRant(updateRant, updateRant.id).then(() => {
+        editRant(updateRant, updateRant.rantId).then(() => {
             navigate('/rants');
         }).catch(error => {
             navigate('/signin');
@@ -44,22 +44,22 @@ const UpdateRant = (props) => {
     console.log(updateRant);
 
     function loading() {
-        return <div className="w-25 text-center">Loading Rants</div>
+        return <div className="w-25 text-center">Loading Yo</div>
       }
     
       function updateForm() {
         return (
-        <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
             <h1>Update Rant</h1>
-            <span>Rant Body </span>
-            <input placeholder="Enter you rant" type="text" name="rantBody" value={updateRant.body} onChange={handleChange} />
+            <span>Rant Name  </span>
+            <input placeholder="Enter rant" type="text" name="rantBody" value={updateRant.rantBody} onChange={handleChange} />
             <br></br><br></br>
             <button>Update Rant</button>
         </form>
         )
       }
-      //if (updateRant === undefined) return loading()
+      if (updateRant === undefined) return loading()
       return parseInt(updateRant.rantId) !== parseInt(params.rantId) ?  loading() : updateForm()
 };
 
-export default UpdateRant;
+export default UpdateCoffee;
