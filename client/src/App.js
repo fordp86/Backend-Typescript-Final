@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter, Routes, Link } from 'react-router-dom';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import RantList from './components/RantList';
@@ -7,6 +7,10 @@ import NewRant from './components/NewRant';
 import UpdateRant from './components/UpdateRant';
 import { UserProvider } from './contexts/UserProvider';
 import { RantProvider } from './contexts/RantProvider';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function App() {
   return (
@@ -14,14 +18,24 @@ function App() {
       <RantProvider>
         <div>
           <BrowserRouter>
-              <nav>
-                  <Link to="/signup">Sign Up</Link>
-                  <span> | </span>
-                  <Link to="/signin">Sign In</Link>
-                  <span> | </span>
-                  <Link to="/rants">Rants List</Link>
-                  <hr></hr>
-              </nav>
+              <Navbar bg="light" expand="lg">
+                <Container>
+                  <Navbar.Brand href="/">Reactbook</Navbar.Brand>
+                  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                  <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                      <Nav.Link href="/signup">Sign Up</Nav.Link>
+                      <Nav.Link href="/signin">Sign In</Nav.Link>
+                      <NavDropdown title="Rants" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/rants">Rant List</NavDropdown.Item>
+                        <NavDropdown.Item href="/rants/new">
+                          Create Rant
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                    </Nav>
+                  </Navbar.Collapse>
+                </Container>
+              </Navbar>
               <Routes>
                   <Route exact path="/" element={ <SignIn /> } />
                   <Route path="/signin" element={ <SignIn /> } />

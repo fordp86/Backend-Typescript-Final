@@ -6,7 +6,7 @@ const rant_1 = require("./rant");
 const user_1 = require("./user");
 const dbName = 'rantsDB';
 const username = 'root';
-const password = '123';
+const password = 'Acc3ss2184!';
 const sequelize = new sequelize_1.Sequelize(dbName, username, password, {
     host: 'localhost',
     port: 3306,

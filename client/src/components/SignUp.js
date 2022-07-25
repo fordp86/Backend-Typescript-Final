@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const SignUp = () => {
 
@@ -33,29 +36,26 @@ const SignUp = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>REGISTER</h1>
-            <br></br><br></br>
-            <span>Username  </span>
-            <input placeholder="Enter Username" type="text" name="username" value={newUser.username} onChange={handleChange} />
-            <br></br><br></br>
-            <span>Password  </span>
-            <input placeholder="Enter Password" type="password" name="password" value={newUser.password} onChange={handleChange} />
-            <br /><br></br>
-            <span>First Name</span>
-            <input placeholder="First Name" type="text" name="firstName" value={newUser.firstName} onChange={handleChange}/>
-            <br /><br></br>
-            <span>Last Name</span>
-            <input placeholder="Last Name" type="text" name="lastName" value={newUser.lastName} onChange={handleChange} />
-            <br /><br></br>
-            <span>City</span>
-            <input placeholder="City" type="text" name="city" value={newUser.city} onChange={handleChange} />
-            <br /><br></br>
-            <span>State</span>
-            <input placeholder="State" type="text" name="state" value={newUser.state} onChange={handleChange}/>
-            <br /><br></br>
-            <button>Sign Up</button>
+    <Container>
+        <h1>REGISTER</h1>
+         <form onSubmit={handleSubmit}>
+            <Form.Label>Username</Form.Label>
+            <Form.Control type="text" placeholder="Enter Username" name="username" value={newUser.username}  onChange={handleChange} />
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="text" placeholder="Enter Password" name="password" value={newUser.password}  onChange={handleChange} />
+            <Form.Label>First Name</Form.Label>
+            <Form.Control type="text" placeholder="First Name" name="firstName" value={newUser.firstName}  onChange={handleChange} />
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control type="text" placeholder="Last Name" name="lastName" value={newUser.lastName}  onChange={handleChange} />
+            <Form.Label>City</Form.Label>
+            <Form.Control type="text" placeholder="City" name="city" value={newUser.city}  onChange={handleChange} />
+            <Form.Label>State</Form.Label>
+            <Form.Control type="text" placeholder="State" name="state" value={newUser.state}  onChange={handleChange} />
+            <Button variant="primary" type="submit">
+                Sign Up
+            </Button>
         </form>
+    </Container>
     )
 };
 

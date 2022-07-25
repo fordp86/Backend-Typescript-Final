@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const SignIn = () => {
     const [username, setUsername] = useState("");
@@ -20,18 +23,18 @@ const SignIn = () => {
     }
 
     return (
+    <Container>
+        <h1>LOGIN</h1>
         <form onSubmit={handleSubmit}>
-            <h1>LOGIN</h1>
-            <span>Username  </span>
-            <input placeholder="Enter username" type="text" name="username" onChange={e => setUsername(e.target.value)} />
-            <br></br><br></br>
-            <span>Password  </span>
-            <input placeholder="Enter password" type="password" name="password" onChange={e => setPassword(e.target.value)} />
-            <br /><br></br>
-            <button>
+            <Form.Label>Username</Form.Label>
+            <Form.Control type="text" placeholder="Enter Username" name="username" onChange={e => setUsername(e.target.value)} />
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Enter Password" name="password" onChange={e => setPassword(e.target.value)} />
+            <Button variant="primary" type="submit">
                 Sign In
-            </button>
+            </Button>
         </form>
+    </Container>
     );
 };
 
