@@ -1,8 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.createUser = void 0;
+exports.loginUser = exports.createUser = exports.getUser = exports.getAllUsers = void 0;
 const user_1 = require("../models/user");
 const auth_1 = require("../services/auth");
+// Get All Users
+const getAllUsers = async (req, res, next) => {
+    let userList = await user_1.Users.findAll();
+    res.status(200).json(userList);
+};
+exports.getAllUsers = getAllUsers;
+// Get One User
+const getUser = async (req, res, next) => {
+    let itemId = parseInt(req.params.userId);
+    let userItem = await user_1.Users.findByPk(itemId);
+    res.status(200).json(userItem);
+};
+exports.getUser = getUser;
 const createUser = async (req, res, next) => {
     let newUser = req.body;
     try {

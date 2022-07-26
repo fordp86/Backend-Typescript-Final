@@ -1,16 +1,19 @@
 import React, { useContext} from 'react';
 import RantContext from '../contexts/RantContext';
+//import UserContext from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import { format, parseISO } from 'date-fns'
 
-const RantList = () => {
+const RantList = (props) => {
 
     let navigate = useNavigate();
 
     let { deleteRant } = useContext(RantContext);
+
+    //let { user } = useContext(UserContext);
 
     function removeRant(id) {
         deleteRant(id).then(() => {

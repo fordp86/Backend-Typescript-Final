@@ -9,6 +9,8 @@ export class Users extends Model<InferAttributes<Users>, InferCreationAttributes
     declare lastName: string;
     declare city: string;
     declare state: string;
+    declare createdAt?: Date;
+    declare updatedAt?: Date;
 }
 
 export function UserFactory(sequelize: Sequelize) {
@@ -43,6 +45,16 @@ export function UserFactory(sequelize: Sequelize) {
             type: DataTypes.STRING,
             allowNull: false
         },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+        }
     }, {
         tableName: 'users',
         freezeTableName: true,

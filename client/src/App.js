@@ -5,6 +5,7 @@ import SignUp from './components/SignUp';
 import RantList from './components/RantList';
 import NewRant from './components/NewRant';
 import UpdateRant from './components/UpdateRant';
+import UserProfile from './components/UserProfile';
 import { UserProvider } from './contexts/UserProvider';
 import { RantProvider } from './contexts/RantProvider';
 import Container from 'react-bootstrap/Container';
@@ -43,6 +44,7 @@ function App() {
                   <Route path="/rants/new" element={ <NewRant /> } />
                   <Route path="/rants/:rantId" element={ <UpdateRant /> } />
                   <Route path="/rants" element={ <RantList /> } />
+                  <Route path="/users/profiles/:userId" element={ <UserProfile /> } />
               </Routes>
           </BrowserRouter>
         </div>
