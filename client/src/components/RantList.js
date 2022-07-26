@@ -1,6 +1,10 @@
 import React, { useContext} from 'react';
 import RantContext from '../contexts/RantContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
+import { format, parseISO } from 'date-fns'
 
 const RantList = () => {
 
@@ -17,32 +21,35 @@ const RantList = () => {
         });
     }
 
+
     return (
-        <RantContext.Consumer>
-        {
+    <RantContext.Consumer>
+            {
             ({ rant }) => {
-                return <div>
-                    <h1>Rant List</h1>
-                    <Link to="/rants/new">Add New Rant</Link>
-                    <div>
-                        {rant.map((r) => {
-                            return (
-                                <div key={r.rantId}>
-                                    <p>{r.rantBody}</p>
-                                    <p>{r.createdAt}</p>
-                                    <div>
-                                        <a href ={`/rants/${r.rantId}`}>Edit This</a>
-                                        <br />
-                                        <Link to={{}} onClick={() => removeRant(`${r.rantId}`)}>Delete Rant</Link>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
+                    return <Container>
+                                <Button variant="primary" href="/rants/new">Add New Rant</Button>
+                                    <ListGroup>
+                            {rant.map((r) => {
+                                let created = parseISO(r.createdAt);
+                                let createdDate = format(created, 'M/dd/yyyy');
+                                return ( 
+                                        <ListGroup.Item key={r.rantId}>
+                                            <p>{r.rantBody}</p>
+                                            <p>{createdDate}</p>
+                                            <div>
+                                                <Button variant="outline-primary" href={`/rants/${r.rantId}`}>Edit This</Button>
+                                                <br />
+                                                <Button variant="outline-primary" href="#" onClick={() => removeRant(`${r.rantId}`)}>Delete Rant</Button>
+                                            </div>
+                                        </ListGroup.Item>
+                                )
+                                
+                            })}
+                            </ListGroup>
+                        </Container>
+                }
             }
-        }
-        </RantContext.Consumer>
+    </RantContext.Consumer>
     );
 };
 

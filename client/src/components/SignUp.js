@@ -38,7 +38,7 @@ const SignUp = () => {
     return (
     <Container>
         <h1>REGISTER</h1>
-         <form onSubmit={handleSubmit}>
+         <Form onSubmit={handleSubmit}>
             <Form.Label>Username</Form.Label>
             <Form.Control type="text" placeholder="Enter Username" name="username" value={newUser.username}  onChange={handleChange} />
             <Form.Label>Password</Form.Label>
@@ -51,10 +51,11 @@ const SignUp = () => {
             <Form.Control type="text" placeholder="City" name="city" value={newUser.city}  onChange={handleChange} />
             <Form.Label>State</Form.Label>
             <Form.Control type="text" placeholder="State" name="state" value={newUser.state}  onChange={handleChange} />
+            <br />
             <Button variant="primary" type="submit">
                 Sign Up
             </Button>
-        </form>
+        </Form>
     </Container>
     )
 };

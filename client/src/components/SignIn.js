@@ -25,15 +25,16 @@ const SignIn = () => {
     return (
     <Container>
         <h1>LOGIN</h1>
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
             <Form.Label>Username</Form.Label>
             <Form.Control type="text" placeholder="Enter Username" name="username" onChange={e => setUsername(e.target.value)} />
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Enter Password" name="password" onChange={e => setPassword(e.target.value)} />
+            <br />
             <Button variant="primary" type="submit">
                 Sign In
             </Button>
-        </form>
+        </Form>
     </Container>
     );
 };

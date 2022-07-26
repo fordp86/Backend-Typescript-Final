@@ -1,6 +1,9 @@
 import React, { useContext, useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import RantContext from '../contexts/RantContext';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const UpdateCoffee = (props) => {
     let params = useParams();
@@ -44,18 +47,22 @@ const UpdateCoffee = (props) => {
     console.log(updateRant);
 
     function loading() {
-        return <div className="w-25 text-center">Loading Yo</div>
+        return <Container><div className="w-25 text-center">Loading Yo</div></Container>
       }
     
       function updateForm() {
         return (
-            <form onSubmit={handleSubmit}>
+        <Container>
             <h1>Update Rant</h1>
-            <span>Rant Name  </span>
-            <input placeholder="Enter rant" type="text" name="rantBody" value={updateRant.rantBody} onChange={handleChange} />
-            <br></br><br></br>
-            <button>Update Rant</button>
-        </form>
+            <Form onSubmit={handleSubmit}>
+                <Form.Label>Rant Name</Form.Label>
+                <Form.Control as="textarea" rows="3" placeholder="Update Rant" name="rantBody" value={updateRant.rantBody} onChange={handleChange} />
+                <br/>
+                <Button variant="primary" type="submit">
+                    Update Rant
+                </Button>
+            </Form>
+        </Container>
         )
       }
       if (updateRant === undefined) return loading()
