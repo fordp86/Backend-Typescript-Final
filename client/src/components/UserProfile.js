@@ -5,13 +5,14 @@ import RantContext from '../contexts/RantContext';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/esm/Stack';
 import { format, parseISO } from 'date-fns';
 
-const RantList = (props) => {
+const RantList = () => {
     let params = useParams();
     let navigate = useNavigate();
 
-    let { user, getOneUser } = useContext(UserContext);
+    let { user, getOneUser, getUserRants } = useContext(UserContext);
 
     let { deleteRant } = useContext(RantContext);
 
@@ -44,36 +45,42 @@ const RantList = (props) => {
         });
     }
 
-    // let userCreated = parseISO(userInfo.createdAt);
-    // let userCreatedDate = format(userCreated , 'M/dd/yyyy');
+    //let userCreated = userInfo.createdAt;
+    //let parsedDate = parseISO(userCreated);
+    //let userCreatedDate = format(parsedDate , 'M/dd/yyyy');
 
     return (
-    <UserContext.Consumer>
         <Container>
-            <div>
-                <p>Username: {userInfo.username}</p>
-                <p>Name: {userInfo.firstName} {userInfo.lastName}</p>
-                <p>Location: {userInfo.city}, {userInfo.state} </p>
-                <p>Profile Created:</p>
-            </div>
-            <RantContext.Consumer>
-            <div>
+            <Stack gap={3} className="col-md-8 mx-auto p-3 profile">
+            <h1>User Info</h1>
+                <h3>Username: <span>{userInfo.username}</span></h3>
+                <h3>Name: <span>{userInfo.firstName} {userInfo.lastName} </span></h3>
+                <h3>Location: <span>{userInfo.city}, {userInfo.state}</span></h3>
+                {/* <p>Profile Created: {userCreatedDate}</p> */}
+            
+            
             {
             ({ rant }) => {
                     return <div>
+                            <h2>User Rants</h2>
                             {rant.map((r) => {
                                 let created = parseISO(r.createdAt);
                                 let createdDate = format(created, 'M/dd/yyyy');
                                 return ( <ListGroup>
+                                        <div className="bg-light border">
                                         <ListGroup.Item key={r.rantId}>
                                             <p>{r.rantBody}</p>
                                             <p>{createdDate}</p>
-                                            <div>
-                                                <Button variant="outline-primary" href={`/rants/${r.rantId}`}>Edit This</Button>
-                                                <br />
-                                                <Button variant="outline-primary" href="#" onClick={() => removeRant(`${r.rantId}`)}>Delete Rant</Button>
-                                            </div>
+                                            <ListGroup horizontal className="actions">
+                                                <ListGroup.Item>
+                                                    <Button variant="outline-primary" href={`/rants/${r.rantId}`}>Edit This</Button>
+                                                </ListGroup.Item>
+                                                <ListGroup.Item>
+                                                    <Button variant="outline-danger" href="#" onClick={() => removeRant(`${r.rantId}`)}>Delete Rant</Button>
+                                                </ListGroup.Item>
+                                            </ListGroup>
                                         </ListGroup.Item>
+                                        </div>
                                     </ListGroup>
                                 )
                                 
@@ -82,10 +89,8 @@ const RantList = (props) => {
                 
                 }
             }
-            </div>
-            </RantContext.Consumer>
+            </Stack>
             </Container>
-    </UserContext.Consumer>
     );
 };
 

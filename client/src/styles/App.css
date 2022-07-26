@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+body{
+    background-color:#283044;
+    font-family: 'Chivo', sans-serif;
+    font-size: 18px;
+}
+
+#nav{
+    background-color:#35A7FF;
+    font-family: 'Chivo', sans-serif;
+    letter-spacing: 0.1em;
+}
+
+#nav .container{
+    background:none;
+}
+
+.navbar-brand{
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2em;
+}
+
+#nav a{
+    color: #fff;
+}
+
+.container{
+    background-color:#ffffff;
+}
+
+h1{
+    font-size: 2.5em;
+}
+
+h3 span{
+    color: gray;
+}
+
+.actions .list-group-item{
+    border: 0px;
+    padding-left: 0;
+}
+
+.form-control,
+.btn{
+    border-radius: 0px;
+}
+
+.form-control{
+    background-color:floralwhite;
+    border-color: black;
+    padding: 0.5rem;
+}
+
+.btn{
+    font-size: 1.2rem;
+}

@@ -11,7 +11,6 @@ import { RantProvider } from './contexts/RantProvider';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function App() {
   return (
@@ -19,20 +18,16 @@ function App() {
       <RantProvider>
         <div>
           <BrowserRouter>
-              <Navbar bg="light" expand="lg">
-                <Container>
-                  <Navbar.Brand href="/">Reactbook</Navbar.Brand>
+              <Navbar expand="lg" id="nav">
+                <Container className="p-3">
+                  <Navbar.Brand href="/rants">Rantbook</Navbar.Brand>
                   <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                  <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
+                  <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+                    <Nav>
                       <Nav.Link href="/signup">Sign Up</Nav.Link>
                       <Nav.Link href="/signin">Sign In</Nav.Link>
-                      <NavDropdown title="Rants" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/rants">Rant List</NavDropdown.Item>
-                        <NavDropdown.Item href="/rants/new">
-                          Create Rant
-                        </NavDropdown.Item>
-                      </NavDropdown>
+                      <Nav.Link href="/rants">Rants</Nav.Link>
+                      <Nav.Link href="/users/profiles/1">Account</Nav.Link>
                     </Nav>
                   </Navbar.Collapse>
                 </Container>

@@ -15,15 +15,32 @@ export const UserProvider = (props) => {
     }, []);
 
     function getUsers() {
-        return axios.get(baseUrl).then(response => setUser(response.data));
+        return axios.get(`${baseUrl}/profiles/`).then(response => setUser(response.data));
     }
 
+    // Get One User
     function getOneUser(id) {
-        return axios.get( `${baseUrl}/profiles/${id}`)
+        return axios.get(`${baseUrl}/profiles/${id}`)
             .then(response => {
                 return new Promise(resolve => resolve(response.data));
             }
         );
+    }
+
+    // Get User Posts
+    function getUserRants(id){
+        return axios.get(`${baseUrl}/profiles/${id}`)
+            .then(response => {
+                return new Promise(resolve => resolve(response.data))
+            })
+    }
+
+    // User Access
+    function userAccess(user){
+        
+    }
+    function userProfilePage(user){
+
     }
 
     function createUser(user) {       
@@ -51,6 +68,9 @@ export const UserProvider = (props) => {
             user,
             getUsers,
             getOneUser,
+            userAccess,
+            userProfilePage,
+            getUserRants,
             createUser,
             signInUser
         }}>

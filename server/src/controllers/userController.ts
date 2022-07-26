@@ -15,6 +15,27 @@ export const getUser: RequestHandler = async (req, res, next) => {
     res.status(200).json(userItem);
 }
 
+// Find User Rants
+export const findUserRants: RequestHandler = async (req, res, next) => {
+    let itemId = parseInt(req.params.userId);
+    let userItem: Users | null = await Users.findByPk(itemId);
+    res.status(200).json(userItem);
+}
+
+// User Access
+export const userAccess: RequestHandler = async(req, res, next) => {
+    if(req.user){
+        res.redirect('/user/login');
+    }else {
+    res.redirect('/user/login');
+    
+    }
+}
+
+export const userProfilePage: RequestHandler = async(req, res, next) => {
+
+}
+
 export const createUser: RequestHandler = async (req, res, next) => {
     let newUser: Users = req.body;
 

@@ -4,6 +4,7 @@ import RantContext from '../contexts/RantContext';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Stack from 'react-bootstrap/esm/Stack';
 
 const UpdateCoffee = (props) => {
     let params = useParams();
@@ -47,21 +48,27 @@ const UpdateCoffee = (props) => {
     console.log(updateRant);
 
     function loading() {
-        return <Container><div className="w-25 text-center">Loading Yo</div></Container>
+        return <Container>
+                <Stack gap={3} className="col-md-7 mx-auto p-3 updaterant">
+                    <div className="w-25 text-center">Loading Yo</div>
+                </Stack>
+            </Container>
       }
     
       function updateForm() {
         return (
         <Container>
-            <h1>Update Rant</h1>
-            <Form onSubmit={handleSubmit}>
-                <Form.Label>Rant Name</Form.Label>
-                <Form.Control as="textarea" rows="3" placeholder="Update Rant" name="rantBody" value={updateRant.rantBody} onChange={handleChange} />
-                <br/>
-                <Button variant="primary" type="submit">
-                    Update Rant
-                </Button>
-            </Form>
+             <Stack gap={3} className="col-md-7 mx-auto p-3 updaterant">
+                <h1>Update Rant</h1>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Label></Form.Label>
+                    <Form.Control as="textarea" rows="3" placeholder="Update Rant" name="rantBody" value={updateRant.rantBody} onChange={handleChange} />
+                    <br/>
+                    <Button variant="primary" type="submit">
+                        Update Rant
+                    </Button>
+                </Form>
+            </Stack>
         </Container>
         )
       }
