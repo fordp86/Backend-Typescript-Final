@@ -40,6 +40,9 @@ const UserList = (props) => {
                                                         <ListGroup.Item>
                                                             <Button variant="outline-primary" href={`/users/profiles/${u.userId}/update`}>Edit User</Button>
                                                         </ListGroup.Item>
+                                                        <ListGroup.Item>
+                                                            <Button variant="outline-primary" href={`/users/profiles/${u.userId}`}>View User</Button>
+                                                        </ListGroup.Item>
                                                     </ListGroup>
                                                 </ListGroup.Item>
                                             </div> 
