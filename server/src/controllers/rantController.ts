@@ -45,6 +45,7 @@ export const editRant: RequestHandler = async (req, res, next) => {
     }
 
     let itemId = req.params.rantId;
+    console.log(itemId);
     let updatedItem: Rants = req.body;
 
     let [updated] = await Rants.update(updatedItem, {

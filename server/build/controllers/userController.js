@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.createUser = exports.userProfilePage = exports.userAccess = exports.findUserRants = exports.getUser = exports.getAllUsers = void 0;
+exports.loginUser = exports.createUser = exports.editUser = exports.findUserRants = exports.getUser = exports.getAllUsers = void 0;
 const user_1 = require("../models/user");
+const rant_1 = require("../models/rant");
 const auth_1 = require("../services/auth");
 // Get All Users
 const getAllUsers = async (req, res, next) => {
@@ -18,24 +19,42 @@ const getUser = async (req, res, next) => {
 exports.getUser = getUser;
 // Find User Rants
 const findUserRants = async (req, res, next) => {
-    let itemId = parseInt(req.params.userId);
-    let userItem = await user_1.Users.findByPk(itemId);
-    res.status(200).json(userItem);
-};
-exports.findUserRants = findUserRants;
-// User Access
-const userAccess = async (req, res, next) => {
-    if (req.user) {
-        res.redirect('/user/login');
+    let user = await (0, auth_1.verifyUser)(req);
+    if (!user) {
+        return res.status(403).send();
+    }
+    let foundRants = req.body;
+    foundRants.userId = user.userId;
+    if (foundRants.rantBody) {
+        let itemId = parseInt(req.params.userId);
+        const posts = await rant_1.Rants.findAll({
+            where: {
+                userId: itemId
+            }
+        });
+        res.status(200).json(posts);
     }
     else {
-        res.redirect('/user/login');
+        res.status(400).send();
     }
 };
-exports.userAccess = userAccess;
-const userProfilePage = async (req, res, next) => {
+exports.findUserRants = findUserRants;
+// Edit Existing Users
+const editUser = async (req, res, next) => {
+    let user = await (0, auth_1.verifyUser)(req);
+    if (!user) {
+        return res.status(403).send();
+    }
+    let itemId = parseInt(req.params.userId);
+    let updatedItem = req.body;
+    let [updated] = await user_1.Users.update(updatedItem, {
+        where: { userId: itemId }
+    });
+    if (updated === 1) {
+        res.status(200).json(updatedItem);
+    }
 };
-exports.userProfilePage = userProfilePage;
+exports.editUser = editUser;
 const createUser = async (req, res, next) => {
     let newUser = req.body;
     try {

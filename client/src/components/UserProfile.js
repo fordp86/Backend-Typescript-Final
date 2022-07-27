@@ -12,85 +12,83 @@ const RantList = () => {
     let params = useParams();
     let navigate = useNavigate();
 
-    let { user, getOneUser, getUserRants } = useContext(UserContext);
+    let { user, getUserRants } = useContext(UserContext);
 
-    let { deleteRant } = useContext(RantContext);
+    let { deleteRant, rant } = useContext(RantContext);
 
     useEffect(() => {
         async function fetch() {
-          await getOneUser(params.userId)
+          await getUserRants(params.userId)
             .then((user) => setUserInfo(user))
         }
         fetch()
-      }, [params.userId, getOneUser]);
+      }, [params.userId, getUserRants]);
 
       let { userId, username, firstName, lastName, city, state, createdAt } = user;
 
+      let { rantId, rantBody } = rant
+
       let [ userInfo, setUserInfo ] = useState({
-        id: userId,
+        userId: userId,
         username: username,
         firstName: firstName,
         lastName: lastName,
         city: city,
         state: state,
+        rantId: rantId,
+        rantBody: rantBody,
         createdAt: createdAt
     });
 
-    function removeRant(id) {
+    function removeRant(id ) {
+        let profileId = params.userId;
         deleteRant(id).then(() => {
-            navigate(`/user/profiles/${userInfo.id}`);
+            navigate(`/users/profiles/${profileId}`);
         }).catch(error => {
             navigate('/signin');
             console.log(error);
         });
     }
-
-    //let userCreated = userInfo.createdAt;
-    //let parsedDate = parseISO(userCreated);
-    //let userCreatedDate = format(parsedDate , 'M/dd/yyyy');
-
+    
     return (
         <Container>
             <Stack gap={3} className="col-md-8 mx-auto p-3 profile">
-            <h1>User Info</h1>
+            <hr />
+            <div>
+                <h1>User Info</h1>
                 <h3>Username: <span>{userInfo.username}</span></h3>
                 <h3>Name: <span>{userInfo.firstName} {userInfo.lastName} </span></h3>
                 <h3>Location: <span>{userInfo.city}, {userInfo.state}</span></h3>
-                {/* <p>Profile Created: {userCreatedDate}</p> */}
-            
-            
-            {
-            ({ rant }) => {
-                    return <div>
-                            <h2>User Rants</h2>
-                            {rant.map((r) => {
-                                let created = parseISO(r.createdAt);
-                                let createdDate = format(created, 'M/dd/yyyy');
-                                return ( <ListGroup>
-                                        <div className="bg-light border">
-                                        <ListGroup.Item key={r.rantId}>
-                                            <p>{r.rantBody}</p>
-                                            <p>{createdDate}</p>
-                                            <ListGroup horizontal className="actions">
-                                                <ListGroup.Item>
-                                                    <Button variant="outline-primary" href={`/rants/${r.rantId}`}>Edit This</Button>
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    <Button variant="outline-danger" href="#" onClick={() => removeRant(`${r.rantId}`)}>Delete Rant</Button>
-                                                </ListGroup.Item>
-                                            </ListGroup>
-                                        </ListGroup.Item>
+                <h3>Profile Created: <span>{userInfo.createdAt}</span></h3>
+            </div>
+            <hr />
+            <div className="pt-3">
+                <h2>User Rants</h2>
+                    <ListGroup>
+                    {rant.map((r) => {
+                        let rantCreated = parseISO(r.createdAt);
+                        let rantCreatedDate = format(rantCreated, 'M/dd/yyyy');
+                        return ( 
+                                <div className="bg-light border">
+                                <ListGroup.Item key={`rant_${r.rantId}_${r.userId}`}>
+                                    <p>{r.rantBody}</p>
+                                    <p>{rantCreatedDate}</p>
+                                    <ListGroup horizontal className="actions">
+                                        <div>
+                                            <Button variant="outline-primary" href={`/rants/${r.rantId}`}>Edit This</Button>
+                                        </div>
+                                        <div>
+                                            <Button variant="outline-danger" onClick={() => removeRant(`${r.rantId}`)}>Delete Rant</Button>
                                         </div>
                                     </ListGroup>
-                                )
-                                
-                            })}
-                            </div>
-                
-                }
-            }
+                                </ListGroup.Item>
+                                </div>
+                        )
+                    })}
+                    </ListGroup>
+                    </div>
             </Stack>
-            </Container>
+        </Container>
     );
 };
 

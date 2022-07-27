@@ -1,6 +1,6 @@
 import React, { useContext} from 'react';
 import RantContext from '../contexts/RantContext';
-import UserContext from '../contexts/UserContext';
+//import UserContext from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -13,8 +13,6 @@ const RantList = (props) => {
     let navigate = useNavigate();
 
     let { deleteRant } = useContext(RantContext);
-
-    let { signInUser } = useContext(UserContext);
 
     function removeRant(id) {
         deleteRant(id).then(() => {
@@ -39,7 +37,7 @@ const RantList = (props) => {
                                         let createdDate = format(created, 'M/dd/yyyy');
                                         return (
                                             <div className="bg-light border mt-3">
-                                            <ListGroup.Item key={r.rantId}>
+                                            <ListGroup.Item key={`rantlist_${r.rantId}`}>
                                                     <p>{r.rantBody}</p>
                                                     <p>{createdDate}</p>
                                                     <p>By: add me</p>

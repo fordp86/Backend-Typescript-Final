@@ -35,16 +35,32 @@ export const UserProvider = (props) => {
             })
     }
 
-    // User Access
-    function userAccess(user){
-        
-    }
-    function userProfilePage(user){
+    // User Profile Access
+    function userProfilePage(user, id){
+        let myHeaders = {
+            Authorization: `Bearer ${localStorage.getItem('myRantToken')}`
+        }
 
+        return axios.get(`${baseUrl}/profiles/${id}`, user, { headers: myHeaders })
+            .then(response => {
+                return new Promise(resolve => resolve(response.data))
+        })
+    }
+
+    function editUser(user, id) {
+        let myHeaders = {
+            Authorization: `Bearer ${localStorage.getItem('myRantToken')}`
+        };
+
+        return axios.put(`${baseUrl}/profiles/${id}`, user, { headers: myHeaders })
+            .then(response => {
+                getUsers();
+                return new Promise(resolve => resolve(response.data));
+            }
+        );
     }
 
     function createUser(user) {       
-        
         return axios.post(baseUrl, user)
             .then(response => {
                 return new Promise(resolve => resolve(response.data));
@@ -68,9 +84,9 @@ export const UserProvider = (props) => {
             user,
             getUsers,
             getOneUser,
-            userAccess,
             userProfilePage,
             getUserRants,
+            editUser,
             createUser,
             signInUser
         }}>

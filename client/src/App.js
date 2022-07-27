@@ -6,6 +6,8 @@ import RantList from './components/RantList';
 import NewRant from './components/NewRant';
 import UpdateRant from './components/UpdateRant';
 import UserProfile from './components/UserProfile';
+import UserList from './components/UserList';
+import UpdateUser from './components/UpdateUser';
 import { UserProvider } from './contexts/UserProvider';
 import { RantProvider } from './contexts/RantProvider';
 import Container from 'react-bootstrap/Container';
@@ -27,7 +29,7 @@ function App() {
                       <Nav.Link href="/signup">Sign Up</Nav.Link>
                       <Nav.Link href="/signin">Sign In</Nav.Link>
                       <Nav.Link href="/rants">Rants</Nav.Link>
-                      <Nav.Link href="/users/profiles/1">Account</Nav.Link>
+                      <Nav.Link href="/users/profiles">Users</Nav.Link>
                     </Nav>
                   </Navbar.Collapse>
                 </Container>
@@ -40,6 +42,8 @@ function App() {
                   <Route path="/rants/:rantId" element={ <UpdateRant /> } />
                   <Route path="/rants" element={ <RantList /> } />
                   <Route path="/users/profiles/:userId" element={ <UserProfile /> } />
+                  <Route path="/users/profiles/:userId/update" element={ <UpdateUser /> } />
+                  <Route path="/users/profiles" element={ <UserList/> } />
               </Routes>
           </BrowserRouter>
         </div>

@@ -40,6 +40,7 @@ const editRant = async (req, res, next) => {
         return res.status(403).send();
     }
     let itemId = req.params.rantId;
+    console.log(itemId);
     let updatedItem = req.body;
     let [updated] = await rant_1.Rants.update(updatedItem, {
         where: { rantId: itemId }

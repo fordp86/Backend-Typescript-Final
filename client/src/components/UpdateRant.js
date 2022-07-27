@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/esm/Stack';
 
-const UpdateCoffee = (props) => {
+const UpdateRant = (props) => {
     let params = useParams();
     let navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const UpdateCoffee = (props) => {
 
     let { rantId, rantBody } = rant;
 
-    console.log(rant);
+    //console.log(rant);
 
     let [ updateRant, setUpdateRant ] = useState({
         id: rantId,
@@ -45,7 +45,7 @@ const UpdateCoffee = (props) => {
         });
     }
 
-    console.log(updateRant);
+    //console.log(updateRant);
 
     function loading() {
         return <Container>
@@ -76,4 +76,4 @@ const UpdateCoffee = (props) => {
       return parseInt(updateRant.rantId) !== parseInt(params.rantId) ?  loading() : updateForm()
 };
 
-export default UpdateCoffee;
+export default UpdateRant;

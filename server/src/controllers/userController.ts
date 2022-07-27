@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { Users } from "../models/user";
+import { Rants } from "../models/rant";
 import { comparePasswords, hashPassword, signUserToken, verifyUser } from "../services/auth";
 
 // Get All Users
@@ -17,23 +18,49 @@ export const getUser: RequestHandler = async (req, res, next) => {
 
 // Find User Rants
 export const findUserRants: RequestHandler = async (req, res, next) => {
-    let itemId = parseInt(req.params.userId);
-    let userItem: Users | null = await Users.findByPk(itemId);
-    res.status(200).json(userItem);
-}
+    let user: Users | null = await verifyUser(req);
 
-// User Access
-export const userAccess: RequestHandler = async(req, res, next) => {
-    if(req.user){
-        res.redirect('/user/login');
-    }else {
-    res.redirect('/user/login');
-    
+    if (!user) {
+        return res.status(403).send();
+    }
+
+    let foundRants: Rants = req.body;
+    foundRants.userId = user.userId;
+
+    if (foundRants.rantBody) {
+        let itemId = parseInt(req.params.userId);
+
+        const posts = await Rants.findAll({
+            where: {
+            userId: itemId
+            }
+        });
+
+        res.status(200).json(posts);
+    }
+    else {
+        res.status(400).send();
     }
 }
 
-export const userProfilePage: RequestHandler = async(req, res, next) => {
+// Edit Existing Users
+export const editUser: RequestHandler = async (req, res, next) => {
+    let user: Users | null = await verifyUser(req);
 
+    if (!user) {
+        return res.status(403).send();
+    }
+
+    let itemId = parseInt(req.params.userId);
+    let updatedItem: Users = req.body;
+
+    let [updated] = await Users.update(updatedItem, {
+        where: { userId: itemId }
+    });
+
+    if(updated === 1) {
+        res.status(200).json(updatedItem);
+    }
 }
 
 export const createUser: RequestHandler = async (req, res, next) => {
