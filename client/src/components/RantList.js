@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import { format, parseISO } from 'date-fns'
 
-const RantList = (props) => {
+const RantList = () => {
 
     let navigate = useNavigate();
 
@@ -18,22 +18,31 @@ const RantList = (props) => {
 
     useEffect(() => {
         async function fetch() {
-          await getUsers(user)
+          await getUsers()
             .then((user) => setUsers(user))
         }
         fetch();
-      }, [getUsers, user]);
+      }, []);
 
     let { userId, username, firstName, lastName } = user;
 
     const [users, setUsers] = useState({
-        id: userId,
+        userId: userId,
         username: username,
         firstName: firstName,
         lastName: lastName
     });
 
-    console.log(users);
+    //console.log(users);
+
+    function hasJWT() {
+        let flag = false;
+  
+        //check user has JWT token
+        localStorage.getItem("myRantToken") ? flag=true : flag=false
+       
+        return flag
+    }
 
     function removeRant(id) {
         deleteRant(id).then(() => {
@@ -51,7 +60,12 @@ const RantList = (props) => {
             ({ rant }) => {
             return <Container>
                     <Stack gap={3} className="col-md-7 mx-auto p-3 rantlist">
+                    {
+                    (hasJWT()) ? 
                     <Button variant="primary" href="/rants/new">Add New Rant</Button>
+                    :
+                    ''
+                    }
                         <ListGroup>
                         {rant.map((r) => {
                             let created = parseISO(r.createdAt);
@@ -61,15 +75,20 @@ const RantList = (props) => {
                                 <ListGroup.Item key={r.rantId}>
                                         <p>{r.rantBody}</p>
                                         <p>{createdDate}</p>
-                                        <p>By: </p>
-                                        <ListGroup horizontal className="actions">
-                                            <ListGroup.Item>
-                                                <Button variant="outline-primary" href={`/rants/${r.rantId}`}>Edit This</Button>
-                                            </ListGroup.Item>
-                                            <ListGroup.Item>
-                                                <Button variant="outline-danger" href="#" onClick={() => removeRant(`${r.rantId}`)}>Delete Rant</Button>
-                                            </ListGroup.Item>
-                                        </ListGroup>
+                                        <p>By: User <a href={`/users/profiles/${r.userId}`}>{r.userId}</a></p>
+                                            {
+                                                (hasJWT()) ? 
+                                                <ListGroup horizontal className="actions">
+                                                    <ListGroup.Item>
+                                                         <Button variant="outline-primary" href={`/rants/${r.rantId}`}>Edit This</Button>
+                                                    </ListGroup.Item>
+                                                    <ListGroup.Item>
+                                                        <Button variant="outline-danger" href="#" onClick={() => removeRant(`${r.rantId}`)}>Delete Rant</Button>
+                                                    </ListGroup.Item>
+                                                </ListGroup>
+                                                :
+                                                ''
+                                            }
                                     </ListGroup.Item>
                                 </div> 
                             )

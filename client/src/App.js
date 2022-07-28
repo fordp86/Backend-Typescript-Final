@@ -15,6 +15,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 function App() {
+  function hasJWT() {
+    let flag = false;
+
+    //check user has JWT token
+    localStorage.getItem("myRantToken") ? flag=true : flag=false
+   
+    return flag
+  }
+
   return (
     <UserProvider>
       <RantProvider>
@@ -25,12 +34,18 @@ function App() {
                   <Navbar.Brand href="/rants">Rantbook</Navbar.Brand>
                   <Navbar.Toggle aria-controls="basic-navbar-nav" />
                   <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                    <Nav>
-                      <Nav.Link href="/signup">Sign Up</Nav.Link>
-                      <Nav.Link href="/signin">Sign In</Nav.Link>
-                      <Nav.Link href="/rants">Rants</Nav.Link>
-                      <Nav.Link href="/users/profiles">Users</Nav.Link>
-                    </Nav>
+                      { (hasJWT()) ? 
+                      <Nav>
+                        <Nav.Link href="/rants">Rants</Nav.Link>
+                        <Nav.Link href="/users/profiles">Users</Nav.Link>
+                      </Nav>
+                      :
+                      <Nav>
+                        <Nav.Link href="/signin">Sign In</Nav.Link> 
+                        <Nav.Link href="/signup">Sign Up</Nav.Link>
+                        <Nav.Link href="/rants">Rants</Nav.Link>
+                      </Nav>
+                      }
                   </Navbar.Collapse>
                 </Container>
               </Navbar>

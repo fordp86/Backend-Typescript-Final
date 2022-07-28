@@ -9,18 +9,14 @@ import Stack from 'react-bootstrap/Stack';
 
 const UserList = (props) => {
 
-    // let navigate = useNavigate();
-
-    // let { deleteRant } = useContext(RantContext);
-
-    // function removeRant(id) {
-    //     deleteRant(id).then(() => {
-    //         navigate('/rants');
-    //     }).catch(error => {
-    //         navigate('/signin');
-    //         console.log(error);
-    //     });
-    // }
+    function hasJWT() {
+        let flag = false;
+  
+        //check user has JWT token
+        localStorage.getItem("myRantToken") ? flag=true : flag=false
+       
+        return flag
+    }
 
 
     return (
@@ -36,14 +32,23 @@ const UserList = (props) => {
                                             <ListGroup.Item key={`userlist_${u.userId}`}>
                                                     <div>{u.firstName} {u.lastName}</div>
                                                     <div>{u.city}, {u.state}</div>
-                                                    <ListGroup horizontal className="actions">
-                                                        <ListGroup.Item>
-                                                            <Button variant="outline-primary" href={`/users/profiles/${u.userId}/update`}>Edit User</Button>
-                                                        </ListGroup.Item>
-                                                        <ListGroup.Item>
-                                                            <Button variant="outline-primary" href={`/users/profiles/${u.userId}`}>View User</Button>
-                                                        </ListGroup.Item>
-                                                    </ListGroup>
+                                                    {
+                                                        (hasJWT()) ? 
+                                                        <ListGroup horizontal className="actions">
+                                                                <ListGroup.Item>
+                                                                    <Button variant="outline-primary" href={`/users/profiles/${u.userId}/update`}>Edit User</Button>
+                                                                </ListGroup.Item>
+                                                                <ListGroup.Item>
+                                                                    <Button variant="outline-primary" href={`/users/profiles/${u.userId}`}>View User</Button>
+                                                                </ListGroup.Item>
+                                                        </ListGroup>
+                                                                :
+                                                        <ListGroup horizontal className="actions">
+                                                            <ListGroup.Item>
+                                                                <Button variant="outline-primary" href={`/users/profiles/${u.userId}`}>View User</Button>
+                                                            </ListGroup.Item>
+                                                        </ListGroup>
+                                                        }
                                                 </ListGroup.Item>
                                             </div> 
                                         )
