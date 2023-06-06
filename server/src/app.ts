@@ -24,7 +24,7 @@ app.use('/api/rants', rantRoutes);
 app.use('/api/users', userRoutes);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-    res.status(404).send("This is not the URL you are looking for!");
+    res.status(404).send("This is not the URL you are looking for! Go back.");
 });
 
 // Syncing our database
