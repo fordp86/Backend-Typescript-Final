@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import UserContext from "./UserContext";
 
 export const UserProvider = (props) => {
-    const baseUrl = "http://localhost:3001/api/users";
+    const baseUrl = "https://rantbook.herokuapp.com/api/users";
 
     const [ user, setUser ] = useState([]);
 
