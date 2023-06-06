@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
-import { db } from './models';
+import { db } from './models/index';
 import rantRoutes from './routes/rantRoutes';
 import userRoutes from './routes/userRoutes';
 
@@ -28,7 +28,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Syncing our database
-db.sync().then(() => {
+db.sync({ alter: true }).then(() => {
     console.info("connected to the database!")
 });
 
