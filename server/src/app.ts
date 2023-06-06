@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const { Sequelize } = require("sequelize");
 
-const cors = require("cors");
+// const cors = require("cors");
 
 const app = express();
 
