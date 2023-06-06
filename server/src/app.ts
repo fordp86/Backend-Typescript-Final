@@ -4,20 +4,21 @@ import { db } from './models';
 import rantRoutes from './routes/rantRoutes';
 import userRoutes from './routes/userRoutes';
 
+require("dotenv").config();
+
+const { Sequelize } = require("sequelize");
+
+const cors = require("cors");
 
 const app = express();
+
+app.use(cors());
 
 app.use(morgan('dev'));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-//Define CORS
-const cors = require('cors');
-const corsOptions = {
-    origin: [ 'http://localhost:4200', 'http://localhost:3001' ]
-};
-app.use(cors(corsOptions));
 
 // routes
 app.use('/api/rants', rantRoutes);
@@ -32,4 +33,6 @@ db.sync().then(() => {
     console.info("connected to the database!")
 });
 
-app.listen(3000);
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT);

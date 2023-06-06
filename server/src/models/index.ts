@@ -2,15 +2,22 @@ import { Sequelize } from "sequelize";
 import { RantFactory, AssociateUserRant } from "./rant";
 import { UserFactory } from "./user";
 
-const dbName = 'hoyrstdyzb3bsz4e';
-const username = 'exufwwlzdmqm48p8';
-const password = 'urbr9eik9qqxub7j';
+const jawsdb: string = process.env.JAWSDB_URL || "";
+const dbname: string = process.env.DB_NAME || "";
+const dbuser: string = process.env.DB_USER || "";
+const dbpassword: string = process.env.DB_PW || "";
 
-const sequelize = new Sequelize(dbName, username, password, {
-    host: 'h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+let sequelize;
+
+if (jawsdb) {
+  sequelize = new Sequelize(jawsdb);
+} else {
+  sequelize = new Sequelize(dbname, dbuser, dbpassword, {
+    host: "localhost",
+    dialect: "mysql",
     port: 3306,
-    dialect: 'mysql'
-});
+  });
+}
 
 RantFactory(sequelize);
 UserFactory(sequelize);
