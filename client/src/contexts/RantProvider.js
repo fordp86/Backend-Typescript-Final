@@ -6,7 +6,7 @@ export const RantProvider = (props) => {
 
     const [ rant, setRant ] = useState([]);
 
-    const baseUrl = "https://rantbook.herokuapp.com/api/rants/";
+    const baseUrl = "http://localhost:3001/api/rants/";
 
     useEffect(() => {
         async function fetchData() {
